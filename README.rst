@@ -11,6 +11,10 @@ Python library to help getting data from `TargetProcess API <http://dev.targetpr
     :target: https://codecov.io/github/magicjohnson/targetprocess-client?branch=master
     :alt: Codecov
 
+.. image:: https://www.quantifiedcode.com/api/v1/project/8cdc9e5652dd4aaf8c8465b788966ea3/badge.svg
+  :target: https://www.quantifiedcode.com/app/project/8cdc9e5652dd4aaf8c8465b788966ea3
+  :alt: Code issues
+
 ================
 Getting the code
 ================
