@@ -4,6 +4,11 @@ import pytz
 
 
 class TargetProcessSerializer(object):
+    """
+    de-serializes raw data.
+    For collection removes redundant `Items` key and puts everything into root
+    converts weird "json" timestamp format into python datetime object
+    """
     @classmethod
     def deserialize(cls, data):
         if isinstance(data, list):

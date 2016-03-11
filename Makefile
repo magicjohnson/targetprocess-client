@@ -22,7 +22,7 @@ clean:
 	find . -name '*.pyc' -exec rm -f {} \;
 
 coverage:
-	coverage run -m unittest discover
+	coverage run --omit=tests -m unittest discover
 
 test:
 	python -m unittest discover

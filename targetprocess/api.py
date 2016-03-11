@@ -21,6 +21,10 @@ logger = logging.getLogger(__name__)
 
 
 class MetaAPI(type):
+    """
+    Meta class that magically registers some commonly (at least for me) used collections
+    by adding methods to TargetProcessAPIClient class
+    """
     RESOURCES = (
         ('story', 'UserStories'),
         ('bug', 'Bugs'),
@@ -58,6 +62,8 @@ class MetaAPI(type):
 
 @add_metaclass(MetaAPI)
 class TargetProcessAPIClient(object):
+    """Client that allows to retrieve and update data using TargetProcess API
+    """
     ITEMS_PER_PAGE = 20
     MAX_RETRIES = 1
 
