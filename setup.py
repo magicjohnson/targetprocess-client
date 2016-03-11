@@ -32,7 +32,8 @@ setup(
     keywords='targetprocess api',
     packages=find_packages(exclude=['tests']),
     install_requires=[
+        'pytz',
         'requests',
         'six',
-    ]
+    ],
 )

@@ -1,2 +1,4 @@
+mock
+pytz
 requests
 six

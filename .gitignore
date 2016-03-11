@@ -9,3 +9,9 @@ lib
 
 # PyCharm data
 .idea
+
+# Coverage
+.coverage
+
+# Environment
+env
