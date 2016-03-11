@@ -12,7 +12,7 @@ install:
   - pip freeze
 
 script:
-  - make test
+  - make coverage
 
 after_success:
   - codecov
