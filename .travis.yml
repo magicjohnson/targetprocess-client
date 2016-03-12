@@ -16,3 +16,18 @@ script:
 
 after_success:
   - codecov
+
+branches:
+  only:
+    - master
+
+deploy:
+  provider: pypi
+  on:
+    tags: true
+    branch: master
+  distributions: "sdist bdist_wheel"
+  user: "magicjohnson"
+  password:
+    secure: HptPrMnqukIN+scc6Qx6L3AgEapV3/vg3FrMwJwUaQIxxtIH8Uv11aXFaFQ6NYt22SGW7KAJ728qf1s6PgQLSYPzAlhmj9d7R4C3umdezNaT9wcfzTsQpB+8hnpvwKZu1u4j/t12lwMaS4hY+bBWOEm90xew38JBa1Pd6f8mLeMGfXovCAExRbmk4uHY7FqUvB/meXwRezMzEA0fMU3fas99KNpdiyF3aFJE1ZxROCUDRYQfNZoOuX+Scqc8WGsb3egw/6Y63dIOM3BLt6IrWPYOnSx33nfJK4ma1X/HKmNk94yT4kVPeoVyxkMksqRqY52WTkijltPhfg7/H0wVyXqodhL100dIxtWja0NrV5EV5MlSG3OLilXw8j27HhHiukJF4+NGS11XvUaUMjOQuCndXc+6ufIc18Ns0xmIVBOTRlbGG2vnal6eKnH8oOims25p7pADlrLVl3wNaIkSiPRREXi6Pxhw0cMz1UQ+gitCscaFJAOsJAxXhFsjAOuBT3e6suGWozEHPLpLFqHkOlfyuMsFA8C6tl1p4ZS83lGxndftILbKnFFLzzTSiL5R998HqlmizLzlq5LkVHLtEShJPSYihe/9ZZ/4PoD/oFTLgK0IdfkFZv3sHfzjz4WvvRhPYlAdqGq1I+s53jDWvlypZ0WHasKAyptHTs6uHdY=
+
