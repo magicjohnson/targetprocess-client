@@ -5,11 +5,22 @@ help:
 	@echo "  coverage    run tests with code coverage"
 	@echo "  test        run tests"
 
-env:
-	pip install virtualenv && \
-	virtualenv env && \
+env_pre:
+	pip install virtualenv
+
+env_post:
 	. env/bin/activate && \
 	make deps
+
+env2: clean
+	make env_pre
+	virtualenv -p python2.7 env
+	make env_post
+
+env3: clean
+	make env_pre
+	virtualenv -p python3 env
+	make env_post
 
 deps:
 	pip install -r requirements.txt

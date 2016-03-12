@@ -20,7 +20,7 @@ class TargetProcessAPIClientTest(TestCase):
         self.do_request_mock.return_value = self.response
 
     def test_get_story_returns_story_by_id(self):
-        self.assertEquals(self.api.get_story(8321), self.response)
+        self.assertEqual(self.api.get_story(8321), self.response)
         self.do_request_mock.assert_called_once_with(
             method='get',
             url="http://tp.api.url/api/v1/UserStories/8321?format=json"
@@ -28,27 +28,27 @@ class TargetProcessAPIClientTest(TestCase):
 
     def test_get_stories(self):
         response = self.api.get_stories(where="Team.Name eq 'Team X'")
-        self.assertEquals(response, self.response)
+        self.assertEqual(response, self.response)
         self.do_request_mock.assert_called_once_with(
             method='get',
-            url="http://tp.api.url/api/v1/UserStories/?where=Team.Name+eq+%27Team+X%27&take=20&format=json",
+            url="http://tp.api.url/api/v1/UserStories/?take=20&where=Team.Name+eq+%27Team+X%27&format=json",
         )
 
     def test_pagination(self):
         self.do_request_mock.side_effect = [
             {
                 'Items': [{'Id': 3}, {'Id': 4}],
-                'Next': 'http://tp.api.url/api/v1/UserStories/?format=json&take=20&skip=20'
+                'Next': 'http://tp.api.url/api/v1/UserStories/?take=20&skip=20&format=json'
             },
             self.response,
         ]
 
         response = self.api.get_stories()
-        self.assertEquals(response['Items'], [{'Id': 3}, {'Id': 4}, {'Id': 1}, {'Id': 2}])
-        self.assertEquals(
+        self.assertEqual(response['Items'], [{'Id': 3}, {'Id': 4}, {'Id': 1}, {'Id': 2}])
+        self.assertSequenceEqual(
             self.do_request_mock.mock_calls, [
                 mock.call(method='get', url="http://tp.api.url/api/v1/UserStories/?take=20&format=json"),
-                mock.call(method='get', url="http://tp.api.url/api/v1/UserStories/?skip=20&take=20&format=json"),
+                mock.call(method='get', url="http://tp.api.url/api/v1/UserStories/?take=20&skip=20&format=json"),
             ]
         )
 
@@ -78,7 +78,7 @@ class TargetProcessAPIClientTest(TestCase):
         ]
 
         response = self.api.get_stories()
-        self.assertEquals(response, {
+        self.assertEqual(response, {
             'Items': [
                 {
                     'Id': 1,
@@ -98,13 +98,13 @@ class TargetProcessAPIClientTest(TestCase):
         })
         expected_calls = [
             mock.call(method='get', url="http://tp.api.url/api/v1/UserStories/?take=20&format=json"),
-            mock.call(method='get', url="http://tp.api.url/api/v1/UserStories/1/Nested/?skip=25&take=25&format=json"),
-            mock.call(method='get', url="http://tp.api.url/api/v1/UserStories/2/Nested/?skip=25&take=25&format=json"),
+            mock.call(method='get', url="http://tp.api.url/api/v1/UserStories/1/Nested/?take=25&skip=25&format=json"),
+            mock.call(method='get', url="http://tp.api.url/api/v1/UserStories/2/Nested/?take=25&skip=25&format=json"),
         ]
-        self.assertEquals(self.do_request_mock.mock_calls, expected_calls)
+        self.assertSequenceEqual(self.do_request_mock.mock_calls, expected_calls)
 
     def test_update_story(self):
-        self.assertEquals(self.api.update_story(1234, {'data': 'xxx'}), self.response)
+        self.assertEqual(self.api.update_story(1234, {'data': 'xxx'}), self.response)
         self.do_request_mock.assert_called_once_with(
             method='post',
             url='http://tp.api.url/api/v1/UserStories/1234?include=%5BId%5D&format=json',
@@ -128,15 +128,15 @@ class APIClientDoRequestTest(TestCase):
 
     def test_request_retry(self):
         self.method.side_effect = ConnectionError
-        self.assertEquals(self.api.get_stories(), {})
-        self.assertEquals(self.method.mock_calls, [
+        self.assertEqual(self.api.get_stories(), {})
+        self.assertEqual(self.method.mock_calls, [
             mock.call(url='http://tp.api.url/api/v1/UserStories/?take=20&format=json', auth=self.api.auth),
             mock.call(url='http://tp.api.url/api/v1/UserStories/?take=20&format=json', auth=self.api.auth),
         ])
 
     def test_do_request_returns_response(self):
         response = self.api.get_stories()
-        self.assertEquals(response, {'Items': [{'Id': 1}, {'Id': 2}, {'Id': 3}]})
+        self.assertEqual(response, {'Items': [{'Id': 1}, {'Id': 2}, {'Id': 3}]})
         self.method.assert_called_once_with(
             url='http://tp.api.url/api/v1/UserStories/?take=20&format=json', auth=self.api.auth
         )
