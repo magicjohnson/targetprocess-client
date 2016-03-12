@@ -2,6 +2,9 @@ language: python
 sudo: false
 python:
   - "2.7"
+  - "3.3"
+  - "3.4"
+  - "3.5"
 
 before_install:
   - pip install codecov
@@ -20,6 +23,7 @@ after_success:
 branches:
   only:
     - master
+    - develop
 
 deploy:
   provider: pypi
