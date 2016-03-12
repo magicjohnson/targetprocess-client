@@ -1,12 +1,25 @@
 # coding=utf-8
+
 """
 TargetProcess API Client
 """
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 import json
 import logging
+import sys
+from collections import OrderedDict
 
-from urllib import urlencode
-from urlparse import parse_qsl, urlparse, urlunparse
+if sys.version_info[0] < 3:
+    from urllib import urlencode
+    from urlparse import parse_qsl, urlparse, urlunparse
+else:
+    from urllib.parse import urlencode
+    from urllib.parse import parse_qsl, urlparse, urlunparse
+
 
 import requests
 
@@ -95,9 +108,9 @@ class TargetProcessAPIClient(object):
 
     def _build_resource_url(self, collection, entity_id=None, **query):
         if entity_id:
-            path = '%s/%s' % (collection, entity_id)
+            path = '{0}/{1}'.format(collection, entity_id)
         else:
-            path = '%s/' % collection
+            path = '{}/'.format(collection)
 
         return self._build_url(path=path, **query)
 
@@ -108,7 +121,7 @@ class TargetProcessAPIClient(object):
         scheme, host, orig_path, params, orig_query, fragments = urlparse(url)
 
         query = self._build_query_params(orig_query, **query_params)
-        path = "%s/%s" % (orig_path.rstrip('/'), path) if path else orig_path
+        path = "{0}/{1}".format(orig_path.rstrip('/'), path) if path else orig_path
 
         return urlunparse((scheme, host, path, params, query, fragments))
 
@@ -119,9 +132,10 @@ class TargetProcessAPIClient(object):
         adds and/or overrides from `**additional_params`
         encodes back to the url string
         """
-        query = self.query.copy()
-        query.update(dict(parse_qsl(orig_query)))
-        query.update(additional_params)
+        query = OrderedDict()
+        query.update(parse_qsl(orig_query))
+        query.update(sorted(additional_params.items()))
+        query.update(sorted(self.query.items()))
         return urlencode(query)
 
     def _get(self, url):
@@ -138,7 +152,7 @@ class TargetProcessAPIClient(object):
         return response
 
     def _handle_nested_pagination(self, item):
-        nested_items = [(k, v) for k, v in item.iteritems() if isinstance(v, dict)]
+        nested_items = [(k, v) for k, v in item.items() if isinstance(v, dict)]
         for field, value in nested_items:
             self._handle_pagination(value)
 

@@ -1,6 +1,13 @@
 # coding=utf-8
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 from datetime import datetime
+
 import pytz
+from six import string_types
 
 
 class TargetProcessSerializer(object):
@@ -19,7 +26,7 @@ class TargetProcessSerializer(object):
                 return [cls.deserialize(item) for item in data['Items']]
 
             processed_item = {}
-            for key, value in data.iteritems():
+            for key, value in data.items():
                 if isinstance(value, (dict, list)):
                     processed_item[key] = cls.deserialize(value)
                 elif cls._is_date(value):
@@ -33,7 +40,7 @@ class TargetProcessSerializer(object):
 
     @staticmethod
     def _is_date(value):
-        return isinstance(value, basestring) and value.startswith('/Date')
+        return isinstance(value, string_types) and value.startswith('/Date')
 
     @staticmethod
     def _json_date_to_datetime(json_date):
