@@ -5,7 +5,9 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from datetime import datetime
+
 import pytz
+from six import string_types
 
 
 class TargetProcessSerializer(object):
@@ -38,7 +40,7 @@ class TargetProcessSerializer(object):
 
     @staticmethod
     def _is_date(value):
-        return isinstance(value, str) and value.startswith('/Date')
+        return isinstance(value, string_types) and value.startswith('/Date')
 
     @staticmethod
     def _json_date_to_datetime(json_date):
