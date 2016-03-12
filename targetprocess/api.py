@@ -108,7 +108,7 @@ class TargetProcessAPIClient(object):
 
     def _build_resource_url(self, collection, entity_id=None, **query):
         if entity_id:
-            path = '{}/{}'.format(collection, entity_id)
+            path = '{0}/{1}'.format(collection, entity_id)
         else:
             path = '{}/'.format(collection)
 
@@ -121,7 +121,7 @@ class TargetProcessAPIClient(object):
         scheme, host, orig_path, params, orig_query, fragments = urlparse(url)
 
         query = self._build_query_params(orig_query, **query_params)
-        path = "{}/{}".format(orig_path.rstrip('/'), path) if path else orig_path
+        path = "{0}/{1}".format(orig_path.rstrip('/'), path) if path else orig_path
 
         return urlunparse((scheme, host, path, params, query, fragments))
 
