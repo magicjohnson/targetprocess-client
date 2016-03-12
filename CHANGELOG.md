@@ -1,11 +1,11 @@
 # Change Log
 
-## [Unreleased](https://github.com/magicjohnson/targetprocess-client/tree/HEAD)
-
-[Full Changelog](https://github.com/magicjohnson/targetprocess-client/compare/v0.1.0...HEAD)
+## [v0.1.1](https://github.com/magicjohnson/targetprocess-client/tree/v0.1.1) (2016-03-12)
+[Full Changelog](https://github.com/magicjohnson/targetprocess-client/compare/v0.1.0...v0.1.1)
 
 **Merged pull requests:**
 
+- python3 support [\#2](https://github.com/magicjohnson/targetprocess-client/pull/2) ([magicjohnson](https://github.com/magicjohnson))
 - README update [\#1](https://github.com/magicjohnson/targetprocess-client/pull/1) ([magicjohnson](https://github.com/magicjohnson))
 
 ## [v0.1.0](https://github.com/magicjohnson/targetprocess-client/tree/v0.1.0) (2016-03-12)
