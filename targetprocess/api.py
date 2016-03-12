@@ -121,7 +121,7 @@ class TargetProcessAPIClient(object):
         scheme, host, orig_path, params, orig_query, fragments = urlparse(url)
 
         query = self._build_query_params(orig_query, **query_params)
-        path = "%s/%s" % (orig_path.rstrip('/'), path) if path else orig_path
+        path = "{}/{}".format(orig_path.rstrip('/'), path) if path else orig_path
 
         return urlunparse((scheme, host, path, params, query, fragments))
 
