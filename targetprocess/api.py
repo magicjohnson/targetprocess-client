@@ -172,7 +172,7 @@ class TargetProcessAPIClient(object):
         try:
             request_method = requests.__getattribute__(method)
             response = request_method(url=url, auth=self.auth, **kwargs)
-            if response.status_code != 200:
+            if response.status_code not in (200, 201):
                 raise BadResponseError(response=response)
 
             return response.json()
