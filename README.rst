@@ -35,7 +35,7 @@ Installing
 
 You can install targetprocess-client using::
 
-    $ pip install tragetprocess-client
+    $ pip install targetprocess-client
 
 or get the code and run install::
 
