@@ -42,12 +42,15 @@ class MetaAPI(type):
         ('story', 'UserStories'),
         ('bug', 'Bugs'),
         ('release', 'Releases'),
+        ('role_effort', 'RoleEfforts'),
+        ('user', 'Users'),
     )
     COLLECTIONS = (
         ('stories', 'UserStories'),
         ('bugs', 'Bugs'),
         ('releases', 'Releases'),
         ('iterations', 'TeamIterations'),
+        ('members', 'TeamMembers'),
     )
 
     def __init__(cls, name, bases, dct):
