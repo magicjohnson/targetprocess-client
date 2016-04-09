@@ -7,8 +7,8 @@ Python library to help getting data from `TargetProcess API <http://dev.targetpr
     :target: https://badge.fury.io/py/targetprocess-client
     :alt: Pypi
 
-.. image:: https://travis-ci.org/magicjohnson/targetprocess-client.svg?branch=master
-    :target: https://travis-ci.org/magicjohnson/targetprocess-client
+.. image:: https://travis-ci.org/360youlun/targetprocess-client.svg?branch=master
+    :target: https://travis-ci.org/360youlun/targetprocess-client
     :alt: Travis CI
 
 .. image:: https://codecov.io/github/magicjohnson/targetprocess-client/coverage.svg?branch=master
