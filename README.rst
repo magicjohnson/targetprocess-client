@@ -11,8 +11,8 @@ Python library to help getting data from `TargetProcess API <http://dev.targetpr
     :target: https://travis-ci.org/360youlun/targetprocess-client
     :alt: Travis CI
 
-.. image:: https://codecov.io/github/magicjohnson/targetprocess-client/coverage.svg?branch=master
-    :target: https://codecov.io/github/magicjohnson/targetprocess-client?branch=master
+.. image:: https://codecov.io/github/360youlun/targetprocess-client/coverage.svg?branch=master
+    :target: https://codecov.io/github/360youlun/targetprocess-client?branch=master
     :alt: Codecov
 
 .. image:: https://www.quantifiedcode.com/api/v1/project/8cdc9e5652dd4aaf8c8465b788966ea3/badge.svg
