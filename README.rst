@@ -1,7 +1,7 @@
 
 TargetProcess Client
 
-Python library to help getting data from `TargetProcess API <http://dev.targetprocess.com/rest/getting_started>`_
+Python library to help getting data from `TargetProcess API <https://dev.targetprocess.com/docs/rest-getting-started>`_
 
 .. image:: https://img.shields.io/pypi/v/targetprocess-client.svg
     :target: https://badge.fury.io/py/targetprocess-client
