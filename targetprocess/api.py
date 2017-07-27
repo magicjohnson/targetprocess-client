@@ -165,6 +165,15 @@ class TargetProcessAPIClient(object):
             next_page_result = self._get(next_page)
             data['Items'] += next_page_result['Items']
 
+    def delete_resource(self, collection, entity_id, data=None):
+        url = self._build_resource_url(collection, entity_id, include="[Id]")
+        return self._delete(url, data)
+    
+    def _delete(self, url, data):
+        headers = {'Content-type': 'application/json'}
+        json_data = json.dumps(data)
+        return self._do_request(method='delete', url=url, data=json_data, headers=headers)
+    
     def _post(self, url, data):
         headers = {'Content-type': 'application/json'}
         json_data = json.dumps(data)
