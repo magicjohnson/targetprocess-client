@@ -7,6 +7,7 @@ from __future__ import unicode_literals
 from unittest import TestCase
 
 import mock
+import requests
 from requests import ConnectionError
 
 from targetprocess.api import TargetProcessAPIClient
@@ -153,4 +154,42 @@ class APIClientDoRequestTest(TestCase):
 
         self.method.assert_called_once_with(
             url='http://tp.api.url/api/v1/UserStories/?take=20&format=json', auth=self.api.auth
+        )
+
+
+class TargetProcessAPIAuthTest(TestCase):
+    def setUp(self):
+        self.requests_get_patcher = mock.patch.object(requests, 'get', autospec=True)
+        self.requests_get_mock = self.requests_get_patcher.start()
+        self.addCleanup(self.requests_get_patcher.stop)
+
+        self.response = mock.Mock()
+        self.response.status_code = 200
+        self.requests_get_mock.return_value = self.response
+
+    def test_basic_auth(self):
+        self.api = TargetProcessAPIClient('http://tp.api.url/api/v1', 'username', 'password')
+        self.api._do_request('get', 'test_url')
+
+        self.requests_get_mock.assert_called_once_with(
+            url='test_url',
+            auth=requests.auth.HTTPBasicAuth('username', 'password'),
+        )
+
+    def test_token_auth(self):
+        self.api = TargetProcessAPIClient('http://tp.api.url/api/v1', token='my_token')
+        self.api._do_request('get', 'test_url')
+
+        self.requests_get_mock.assert_called_once_with(
+            url='test_url',
+            params={'access_token': 'my_token'},
+        )
+
+    def test_both_auth_methods_token_overrides(self):
+        self.api = TargetProcessAPIClient('http://tp.api.url/api/v1', 'username', 'password', 'my_token')
+        self.api._do_request('get', 'test_url')
+
+        self.requests_get_mock.assert_called_once_with(
+            url='test_url',
+            params={'access_token': 'my_token'},
         )
