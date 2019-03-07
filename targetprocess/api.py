@@ -83,8 +83,9 @@ class TargetProcessAPIClient(object):
     ITEMS_PER_PAGE = 20
     MAX_RETRIES = 1
 
-    def __init__(self, api_url, user, password):
+    def __init__(self, api_url, user=None, password=None, token=None):
         self.auth = HTTPBasicAuth(user, password)
+        self.token = token
         self.api_url = api_url
         self.query = {'format': 'json'}
 
@@ -174,7 +175,12 @@ class TargetProcessAPIClient(object):
         attempt = kwargs.pop('attempt', 0)
         try:
             request_method = requests.__getattribute__(method)
-            response = request_method(url=url, auth=self.auth, **kwargs)
+
+            if self.token:
+                response = request_method(url=url, params={'access_token': self.token}, **kwargs)
+            else:
+                response = request_method(url=url, auth=self.auth, **kwargs)
+
             if response.status_code not in (200, 201):
                 raise BadResponseError(response=response)
 
